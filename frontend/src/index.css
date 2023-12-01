@@ -25,6 +25,14 @@
         @apply sticky top-0 flex items-center w-full px-[5vw] py-5 h-[80px] border-b border-gray bg-white;
     }
 
+    .h-cover {
+        @apply min-h-[calc(100vh-80px)];
+    }
+
+    .center {
+        @apply block mx-auto;
+    }
+
     .link {
         @apply text-dark-gray hover:text-black hover:bg-gray p-3 px-4 block opacity-75;
     }
@@ -40,7 +48,16 @@
     .btn-dark {
         @apply whitespace-nowrap bg-black text-white rounded-full py-3 px-6 text-xl capitalize hover:opacity-80;
     }
+
     .btn-light {
         @apply btn-dark bg-gray text-black;
+    }
+
+    .input-box {
+        @apply w-[100%] rounded-md p-4 bg-gray pl-12 border border-gray focus:bg-transparent placeholder:text-black;
+    }
+
+    .input-icon {
+        @apply absolute left-4 top-1/2 -translate-y-1/2;
     }
 }
