@@ -2,12 +2,66 @@ import InputBox from '../components/InputBox';
 import googleIcon from '../assets/google.png';
 import { Link } from 'react-router-dom';
 import AnimationWrapper from '../common/AnimationWrapper';
+import toast, { Toaster } from 'react-hot-toast';
+import axios from 'axios';
+import { storeInSession } from '../common/Session';
 
 const UserAuthForm = ({ type }) => {
+    const userAuthThroughServer = (serverRoute, formData) => {
+        axios
+            .post(import.meta.env.VITE_SERVER_DOMAIN + serverRoute, formData)
+            .then(({ data }) => {
+                storeInSession('user', JSON.stringify(data));
+                console.log(sessionStorage);
+            })
+            .catch(({ response }) => {
+                toast.error(response.data.error);
+                console.log(response);
+            });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        let serverRoute = type == 'sign-in' ? '/signin' : '/signup';
+
+        let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // regex for email
+        let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/; // regex for password
+
+        // form data
+        let form = new FormData(formElement);
+        let formData = {};
+
+        for (let [key, value] of form.entries()) {
+            formData[key] = value;
+        }
+
+        const { fullname, email, password } = formData;
+
+        // form validation
+        if (fullname) {
+            if (fullname.length < 3) {
+                return toast('Fullname must be at least 3 letters long');
+            }
+        }
+        if (!email.length) {
+            return toast.error('Enter email');
+        }
+        if (!emailRegex.test(email)) {
+            return toast.error('Email is invalid');
+        }
+        if (!passwordRegex.test(password)) {
+            return toast.error('Password should be 6 to 20 characters long with a numeric, 1 lowercase and 1 uppercase letters');
+        }
+
+        userAuthThroughServer(serverRoute, formData);
+    };
+
     return (
         <AnimationWrapper keyValue={type}>
             <section className="h-cover flex items-center justify-center">
-                <form className="w-[80%] max-w-[400px]">
+                <Toaster />
+                <form id="formElement" className="w-[80%] max-w-[400px]">
                     <h1 className="text-4xl font-gelasio capitalize text-center mb-24">{type === 'sign-in' ? 'Welcome back' : 'Join us today'}</h1>
 
                     {type !== 'sign-in' ? <InputBox name="fullname" type="text" placeholder="Full Name" icon="fi-rr-user" /> : ''}
@@ -16,7 +70,9 @@ const UserAuthForm = ({ type }) => {
 
                     <InputBox name="password" type="password" placeholder="Password" icon="fi fi-rr-key" />
 
-                    <button className="btn-dark center">{type.replace('-', ' ')}</button>
+                    <button className="btn-dark center" onClick={handleSubmit}>
+                        {type.replace('-', ' ')}
+                    </button>
 
                     <div className="flex items-center gap-2 my-10 uppercase opacity-20 text-black font-bold">
                         <hr className="w-1/2 border-black" />
