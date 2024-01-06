@@ -1,14 +1,18 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { UserContext } from '../App';
 import { Navigate } from 'react-router-dom';
+import BlogEditor from '../components/BlogEditor';
+import PublishForm from '../components/PublishForm';
 
 const Editor = () => {
-    const {
+    const [editorState, setEditorState] = useState('editor');
+
+    let {
         userAuth: { access_token },
         setUserAuth,
     } = useContext(UserContext);
 
-    return <div>{access_token === null ? <Navigate to="/signin" /> : <h1>Hello Publisher</h1>}</div>;
+    return access_token === null ? <Navigate to="/signin" /> : editorState === 'editor' ? <BlogEditor /> : <PublishForm />;
 };
 
 export default Editor;
