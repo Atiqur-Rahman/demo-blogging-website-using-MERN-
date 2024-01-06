@@ -22,7 +22,7 @@
         @apply mt-0.5;
     }
     .navbar {
-        @apply sticky top-0 flex items-center w-full px-[5vw] py-5 h-[80px] border-b border-gray bg-white;
+        @apply z-10 sticky top-0 flex items-center gap-12 w-full px-[5vw] py-5 h-[80px] border-b border-gray bg-white;
     }
 
     .h-cover {
