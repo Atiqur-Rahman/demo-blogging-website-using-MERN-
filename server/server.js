@@ -8,6 +8,7 @@ import cors from 'cors';
 import admin from 'firebase-admin';
 import { getAuth } from 'firebase-admin/auth';
 import serverAccountKey from './fir-blogging-website-firebase-adminsdk-jif70-6adf95b8f0.json' assert { type: 'json' };
+import aws from 'aws-sdk';
 
 // schema
 import User from './Schema/User.js';
@@ -27,6 +28,12 @@ let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/; // regex for pass
 
 mongoose.connect(process.env.DB_LOCATION, {
     autoIndex: true,
+});
+
+const s3 = new aws.S3({
+    region: 'ap-south-1',
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 });
 
 const formatDataToSend = (user) => {
