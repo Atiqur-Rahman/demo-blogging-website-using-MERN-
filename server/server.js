@@ -36,6 +36,7 @@ const s3 = new aws.S3({
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 });
 
+// Generate Upload URL
 const generateUploadURL = async () => {
     const date = new Date();
     const imageName = `${nanoid}-${date.getTime()}.jpeg`;
