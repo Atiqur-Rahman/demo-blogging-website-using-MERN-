@@ -1,7 +1,0 @@
-post http://localhost:3000/signin
-content-type: application/json
-
-{
-    "email": "rahmanatique98@coldmail.com",
-    "password": "atikK2"
-}
