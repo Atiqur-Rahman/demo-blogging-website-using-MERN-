@@ -1,18 +1,30 @@
 import { Link } from 'react-router-dom';
-import logo from '../assets/feather.png';
+import logo from '../assets/owl.jpg';
 import AnimationWrapper from '../common/AnimationWrapper';
 import defaultBanner from '../assets/blog banner.png';
 import { uploadImage } from '../common/AWS';
 import { Toaster, toast } from 'react-hot-toast';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { EditorContext } from '../pages/Editor';
+import EditorJs from '@editorjs/editorjs';
+import { tools } from './Tools';
 
 const BlogEditor = () => {
-    const {
+    let {
         blog,
         blog: { title, banner, content, tags, des, author },
         setBlog,
     } = useContext(EditorContext);
+
+    // useEffect
+    useEffect(() => {
+        let editor = new EditorJs({
+            holder: 'textEditor',
+            data: '',
+            tools: tools,
+            placeholder: "Let's write an awesome story",
+        });
+    }, []);
 
     const handleBannerUpload = (e) => {
         let img = e.target.files[0];
@@ -60,10 +72,10 @@ const BlogEditor = () => {
         <>
             <nav className="navbar">
                 <Link to="/">
-                    <img src={logo} className="flex-none w-14 h-12" alt="" />
+                    <img src={logo} className="flex-none w-12" alt="" />
                 </Link>
 
-                <p className="max-md:hidden text-black line-clamp-1 w-full">{title.length ? title : 'New Blog'}</p>
+                <p className="max-md:hidden text-black line-clamp-1">{title.length ? title : 'New Blog'}</p>
 
                 <div className="flex gap-4 ml-auto">
                     <button className="btn-dark py-2">Publish</button>
@@ -74,7 +86,7 @@ const BlogEditor = () => {
             <AnimationWrapper>
                 <section>
                     <div className="mx-auto max-w-[900px] w-full">
-                        <div className="relative aspect-video hover:opacity-80 bg-white border-4 mt-8 border-gray">
+                        <div className="relative aspect-video hover:opacity-80 bg-white border-4 border-gray">
                             <label htmlFor="uploadBanner" className="cursor-pointer">
                                 <img src={banner} alt="" onError={handleError} />
                                 <input id="uploadBanner" type="file" accept=".png, .jpg, .jpeg" hidden onChange={handleBannerUpload} />
@@ -84,6 +96,8 @@ const BlogEditor = () => {
                         <textarea placeholder="Blog Title" className="text-4xl font-medium outline-none resize-none w-full h-20 mt-10 leading-tight placeholder:opacity-50" onKeyDown={handleTitleKeydown} onChange={handleTitleChange}></textarea>
 
                         <hr className="w-full my-5 opacity-20" />
+
+                        <div id="textEditor" className="w-full font-gelasio"></div>
                     </div>
                 </section>
             </AnimationWrapper>

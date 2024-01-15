@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'react-router-dom';
-import logo from '../assets/feather.png';
+import logo from '../assets/owl.jpg';
 import { useContext, useState } from 'react';
 import { UserContext } from '../App';
 import UserNavigationPanel from './UserNavigationPanel';
@@ -28,7 +28,7 @@ const Navbar = () => {
         <>
             <nav className="navbar">
                 <Link>
-                    <img src={logo} alt="" className="flex-none w-14 h-12" />
+                    <img src={logo} alt="" className="flex-none w-12" />
                 </Link>
 
                 <div className={`absolute bg-white w-full left-0 top-full mt-0.5 border-b border-gray py-4 px-[5vw] md:border-0 md:block md:relative md:inset-0 md:p-0 md:w-auto md:show ${searchBoxVisibility ? 'show' : 'hide'}`}>

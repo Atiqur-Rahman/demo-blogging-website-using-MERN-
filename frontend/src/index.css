@@ -21,6 +21,19 @@
     i {
         @apply mt-0.5;
     }
+
+    section {
+        @apply py-4 px-[5vw] md:px-[7vw] lg:px-[10vw];
+    }
+
+    ::selection {
+        @aply bg-purple/30;
+    }
+
+    img {
+        @apply w-full h-full object-cover;
+    }
+
     .navbar {
         @apply z-10 sticky top-0 flex items-center gap-12 w-full px-[5vw] py-5 h-[80px] border-b border-gray bg-white;
     }
@@ -60,4 +73,29 @@
     .input-icon {
         @apply absolute left-4 top-1/2 -translate-y-1/2;
     }
+
+    #textEditor h2,
+    h2 {
+        @apply font-inter text-4xl leading-normal font-bold max-md:text-3xl max-md:leading-snug !important;
+    }
+
+    #textEditor h3,
+    h3 {
+        @apply font-inter text-3xl leading-loose max-md:text-2xl max-md:leading-normal !important;
+    }
+
+    #textEditor * {
+        @apply font-gelasio text-xl leading-10 md:text-2xl;
+    }
 }
+
+.ce-block__content,
+.ce-toolbar__content {
+    max-width: 900px;
+}
+
+/* .cdx-settings-button[data-tune='withBorder'],
+.cdx-settings-button[data-tune='withBackground'],
+.cdx-settings-button[data-tune='stretched'] {
+    display: none;
+} */
