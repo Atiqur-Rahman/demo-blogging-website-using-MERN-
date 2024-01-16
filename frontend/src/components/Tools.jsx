@@ -35,15 +35,6 @@ const uploadImageByUrl = (e) => {
             file: { url },
         };
     });
-
-    // return uploadImage(e).then((url) => {
-    //     if (url) {
-    //         return {
-    //             success: 1,
-    //             file: { url },
-    //         };
-    //     }
-    // });
 };
 
 export const tools = {

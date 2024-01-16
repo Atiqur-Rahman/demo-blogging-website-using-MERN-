@@ -14,17 +14,22 @@ const BlogEditor = () => {
         blog,
         blog: { title, banner, content, tags, des, author },
         setBlog,
+        textEditor,
+        setTextEditor,
+        setEditorState,
     } = useContext(EditorContext);
 
     // useEffect
     useEffect(() => {
-        let editor = new EditorJs({
-            holder: 'textEditor',
-            data: '',
-            tools: tools,
-            placeholder: "Let's write an awesome story",
-        });
-    }, []);
+        setTextEditor(
+            new EditorJs({
+                holder: 'textEditor',
+                data: '',
+                tools: tools,
+                placeholder: "Let's write an awesome story",
+            })
+        );
+    }, [setTextEditor]);
 
     const handleBannerUpload = (e) => {
         let img = e.target.files[0];
@@ -68,6 +73,32 @@ const BlogEditor = () => {
         img.src = defaultBanner;
     };
 
+    const handlePublishEvent = () => {
+        // if (!banner.length) {
+        //     toast.error('Upload a blog banner to publish it');
+        // }
+
+        // if (!title.length) {
+        //     toast.error('Write blog title to publish it');
+        // }
+
+        if (textEditor.isReady) {
+            textEditor
+                .save()
+                .then((data) => {
+                    if (data.blocks.length) {
+                        setBlog({ ...blog, content: data });
+                        setEditorState('publish');
+                    } else {
+                        return toast.error('Write something in your blog to publish it');
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    };
+
     return (
         <>
             <nav className="navbar">
@@ -78,7 +109,9 @@ const BlogEditor = () => {
                 <p className="max-md:hidden text-black line-clamp-1">{title.length ? title : 'New Blog'}</p>
 
                 <div className="flex gap-4 ml-auto">
-                    <button className="btn-dark py-2">Publish</button>
+                    <button className="btn-dark py-2" onClick={handlePublishEvent}>
+                        Publish
+                    </button>
                     <button className="btn-light py-2">Save Draft</button>
                 </div>
             </nav>
