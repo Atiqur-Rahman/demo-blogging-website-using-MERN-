@@ -24,12 +24,12 @@ const BlogEditor = () => {
         setTextEditor(
             new EditorJs({
                 holder: 'textEditor',
-                data: '',
+                data: content,
                 tools: tools,
                 placeholder: "Let's write an awesome story",
             })
         );
-    }, [setTextEditor]);
+    }, [setTextEditor, content]);
 
     const handleBannerUpload = (e) => {
         let img = e.target.files[0];
@@ -86,12 +86,12 @@ const BlogEditor = () => {
             textEditor
                 .save()
                 .then((data) => {
-                    if (data.blocks.length) {
-                        setBlog({ ...blog, content: data });
-                        setEditorState('publish');
-                    } else {
-                        return toast.error('Write something in your blog to publish it');
-                    }
+                    // if (data.blocks.length) {
+                    setBlog({ ...blog, content: data });
+                    setEditorState('publish');
+                    // } else {
+                    //     return toast.error('Write something in your blog to publish it');
+                    // }
                 })
                 .catch((err) => {
                     console.log(err);
@@ -126,7 +126,7 @@ const BlogEditor = () => {
                             </label>
                         </div>
 
-                        <textarea placeholder="Blog Title" className="text-4xl font-medium outline-none resize-none w-full h-20 mt-10 leading-tight placeholder:opacity-50" onKeyDown={handleTitleKeydown} onChange={handleTitleChange}></textarea>
+                        <textarea defaultValue={title} placeholder="Blog Title" className="text-4xl font-medium outline-none resize-none w-full h-20 mt-10 leading-tight placeholder:opacity-50" onKeyDown={handleTitleKeydown} onChange={handleTitleChange}></textarea>
 
                         <hr className="w-full my-5 opacity-20" />
 
