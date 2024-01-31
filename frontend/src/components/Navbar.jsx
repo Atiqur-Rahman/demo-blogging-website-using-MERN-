@@ -38,7 +38,7 @@ const Navbar = () => {
                 </div>
 
                 <div className="flex items-center gap-3 md:gap-6 ml-auto">
-                    <button className="md:hidden  bg-gray w-12 h-12 rounded-full flex items-center justify-center" onClick={() => setSearchBoxVisibility((currenVal) => !currenVal)}>
+                    <button className="md:hidden bg-gray w-12 h-12 rounded-full flex items-center justify-center" onClick={() => setSearchBoxVisibility((currenVal) => !currenVal)}>
                         <i className="fi fi-rr-search text-xl text-dark-gray"></i>
                     </button>
 

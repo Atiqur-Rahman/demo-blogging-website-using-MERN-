@@ -51,7 +51,7 @@
     }
 
     .hide {
-        @apply opacity-0 duration-100;
+        @apply opacity-0 pointer-events-none duration-100;
     }
 
     .show {
