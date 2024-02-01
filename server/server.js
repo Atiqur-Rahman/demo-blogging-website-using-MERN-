@@ -221,6 +221,22 @@ app.post('/google-auth', async (req, res) => {
         });
 });
 
+app.get('/latest-blogs', (req, res) => {
+    let maxLimit = 5;
+
+    Blog.find({ draft: false })
+        .populate('author', 'personal_info.username personal_info.profile_img personal_info.fullname -_id')
+        .sort({ publishedAt: -1 })
+        .select('blog_id title banner des tags activity publishedAt -_id')
+        .limit(maxLimit)
+        .then((blogs) => {
+            return res.status(200).json({ blogs });
+        })
+        .catch((err) => {
+            return res.status(500).json({ error: err.message });
+        });
+});
+
 app.post('/create-blog', verifyJWT, (req, res) => {
     let authorId = req.user;
 
