@@ -3,6 +3,7 @@ import AnimationWrapper from '../common/AnimationWrapper';
 import InPageNavigation from '../components/InPageNavigation';
 import { useEffect, useState } from 'react';
 import Loader from '../components/Loader';
+import BlogPostCard from '../components/BlogPostCard';
 
 const HomePage = () => {
     const [blogs, setBlogs] = useState();
@@ -32,7 +33,11 @@ const HomePage = () => {
                             <Loader />
                         ) : (
                             blogs.map((blog, i) => {
-                                return <h1 key={i}>{blog.title}</h1>;
+                                return (
+                                    <AnimationWrapper key={i} transition={{ duration: 1, delay: i * 0.1 }}>
+                                        <BlogPostCard content={blog} author={blog.author.personal_info} />
+                                    </AnimationWrapper>
+                                );
                             })
                         )}
 
