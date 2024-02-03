@@ -61,7 +61,7 @@ const HomePage = () => {
                             trendingBlogs.map((blog, i) => {
                                 return (
                                     <AnimationWrapper transition={{ duration: 1, delay: i * 0.1 }} key={i}>
-                                        <MinimalBlogPost />
+                                        <MinimalBlogPost content={blog} index={i} />
                                     </AnimationWrapper>
                                 );
                             })
