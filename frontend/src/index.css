@@ -107,9 +107,9 @@
         @apply text-purple underline hover:opacity-50;
     }
 
-    /* .tag {
-        @apply p-3 bg-grey rounded-full px-6 capitalize;
-    } */
+    .tag {
+        @apply p-3 bg-gray rounded-full px-6 capitalize;
+    }
 
     .blog-title {
         @apply text-2xl font-medium leading-7 line-clamp-3 sm:line-clamp-2;
